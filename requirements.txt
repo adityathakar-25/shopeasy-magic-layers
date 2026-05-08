@@ -1,0 +1,22 @@
+# ── Core ML models ────────────────────────────────────────────────────────────
+ultralytics>=8.0.0
+segment-anything @ git+https://github.com/facebookresearch/segment-anything.git
+
+# ── Image processing ──────────────────────────────────────────────────────────
+opencv-python>=4.8.0
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# ── Deep learning ─────────────────────────────────────────────────────────────
+torch>=2.0.0
+torchvision>=0.15.0
+
+# ── UI ────────────────────────────────────────────────────────────────────────
+gradio>=4.0.0
+
+# ── Inpainting (object removal) ───────────────────────────────────────────────
+iopaint>=1.6.0
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+matplotlib>=3.7.0
+requests>=2.31.0

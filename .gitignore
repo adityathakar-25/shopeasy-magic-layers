@@ -1,0 +1,64 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv/
+env/
+.env/
+.venv/
+
+# ── Model weights (large files — download automatically on first run) ─────────
+*.pt
+*.pth
+*.onnx
+*.bin
+sam_vit_b_01ec64.pth
+yolov8n.pt
+yolov8s.pt
+yolov8m.pt
+
+# ── Output / debug images (generated at runtime) ─────────────────────────────
+output_stage*.jpg
+output_stage*.png
+debug_*.jpg
+debug_*.png
+
+# ── Environment variables (contains API keys) ─────────────────────────────────
+.env
+.env.local
+.env.production
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Temporary files ───────────────────────────────────────────────────────────
+tmp/
+temp/
+*.tmp
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
