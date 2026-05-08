@@ -40,31 +40,53 @@ git clone https://github.com/your-username/shopeasy-image-processor.git
 cd shopeasy-image-processor
 ```
 
-### 2. Create a virtual environment
+### 2. Create a virtual environment (Python 3.10 required)
 
 ```bash
 # Windows
-python -m venv venv
+py -3.10 -m venv venv
 venv\Scripts\activate
 
 # macOS / Linux
-python -m venv venv
+python3.10 -m venv venv
 source venv/bin/activate
 ```
 
-### 3. Install dependencies
+> ⚠️ Python 3.10 specifically is required. 3.11+ may have compatibility issues with the pinned torch/ultralytics versions.
+
+### 3. Install PyTorch (CPU-only, ~250 MB)
 
 ```bash
-pip install -r requirements.txt
+pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cpu
 ```
 
-SAM requires a separate install from GitHub:
+> Without the `--index-url` flag, pip defaults to the CUDA build (~2.5 GB) even on CPU-only machines.
+
+### 4. Install remaining dependencies
+
+```bash
+pip install -r requirements.txt --timeout 300
+```
+
+### 5. Install SAM (Segment Anything Model)
+
+SAM is not on PyPI — install directly from GitHub:
 
 ```bash
 pip install git+https://github.com/facebookresearch/segment-anything.git
 ```
 
-### 4. Model weights
+### 6. Install IOPaint (LaMa inpainting backend)
+
+IOPaint must be installed **without its dependencies** because it hard-pins older versions of gradio and Pillow that conflict with this project:
+
+```bash
+pip install iopaint==1.6.0 --no-deps
+```
+
+> Without `--no-deps`, iopaint would downgrade `gradio` to 4.21.0 and `Pillow` to 9.5.0. Since we only use iopaint as a CLI subprocess (not a Python import), its pinned versions don't matter — ours work fine.
+
+### 7. Model weights
 
 Model weights are downloaded automatically on first run:
 
@@ -82,7 +104,7 @@ Model weights are downloaded automatically on first run:
 python app.py
 ```
 
-Open [http://127.0.0.1:7860](http://127.0.0.1:7860) in your browser.
+Open [http://localhost:7860](http://localhost:7860) in your browser.
 
 On first launch:
 - YOLOv8s and SAM are pre-loaded into memory

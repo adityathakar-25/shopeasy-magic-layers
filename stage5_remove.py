@@ -7,7 +7,7 @@ Architecture:
   Fallback : Gaussian fill             — instant, CPU only, for flat studio backgrounds
 
 IOPaint server lifecycle (managed automatically):
-  - On first removal call, stage5 checks if IOPaint is running at localhost:8080
+  - On first removal call, stage5 checks if IOPaint is running at localhost:8081
   - If not running, it starts it as a background process and waits for ready
   - Server stays running for the entire app session
   - On app exit, server is shut down cleanly
@@ -36,7 +36,7 @@ from utils import pil_to_cv2, cv2_to_pil
 
 # ── IOPaint server config ─────────────────────────────────────────────────────
 IOPAINT_HOST    = "127.0.0.1"
-IOPAINT_PORT    = 8080
+IOPAINT_PORT    = 8081
 IOPAINT_URL     = f"http://{IOPAINT_HOST}:{IOPAINT_PORT}"
 IOPAINT_TIMEOUT = 120   # seconds to wait for server startup
 

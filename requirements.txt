@@ -1,22 +1,55 @@
-# ── Core ML models ────────────────────────────────────────────────────────────
-ultralytics>=8.0.0
-segment-anything @ git+https://github.com/facebookresearch/segment-anything.git
+# ── Shopeasy AI Image Processor — requirements.txt ───────────────────────────
+# Python 3.10 required (3.11+ not tested — torch/ultralytics pins may differ)
+#
+# ── Full setup (run in order) ─────────────────────────────────────────────────
+#
+#   Step 1 — Create and activate a venv with Python 3.10:
+#     Windows : py -3.10 -m venv venv && venv\Scripts\activate
+#     macOS   : python3.10 -m venv venv && source venv/bin/activate
+#
+#   Step 2 — Install PyTorch (CPU-only build, ~250 MB vs 2.5 GB CUDA build):
+#     pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cpu
+#
+#   Step 3 — Install everything else:
+#     pip install -r requirements.txt --timeout 300
+#
+#   Step 4 — Install SAM from GitHub (not on PyPI):
+#     pip install git+https://github.com/facebookresearch/segment-anything.git
+#
+#   Step 5 — Install iopaint WITHOUT its conflicting deps:
+#     pip install iopaint==1.6.0 --no-deps
+#
+# Why --no-deps for iopaint?
+#   iopaint hard-pins gradio==4.21.0 and Pillow==9.5.0 in its metadata.
+#   We use it ONLY as a CLI server (subprocess), not as a Python import,
+#   so its gradio/Pillow pins are irrelevant — our versions work fine.
+#
+# Why pin pydantic?
+#   pydantic 2.11+ generates boolean additionalProperties in JSON schemas,
+#   which crashes gradio_client 0.9.x with TypeError: argument of type 'bool'
+#   is not iterable. Pin to 2.10.6 until gradio ships a fix.
+# ─────────────────────────────────────────────────────────────────────────────
 
-# ── Image processing ──────────────────────────────────────────────────────────
-opencv-python>=4.8.0
-Pillow>=10.0.0
-numpy>=1.24.0
+# ── Deep Learning (install separately via Step 2 above for CPU-only build) ───
+# torch==2.3.1
+# torchvision==0.18.1
 
-# ── Deep learning ─────────────────────────────────────────────────────────────
-torch>=2.0.0
-torchvision>=0.15.0
+# ── Object Detection ──────────────────────────────────────────────────────────
+ultralytics==8.2.87
+
+# ── Image Processing ──────────────────────────────────────────────────────────
+Pillow==10.4.0
+opencv-python==4.10.0.84
+numpy==1.26.4
 
 # ── UI ────────────────────────────────────────────────────────────────────────
-gradio>=4.0.0
+gradio==4.44.1
+# pydantic 2.11+ breaks gradio_client schema parsing — pin to known-good version
+pydantic==2.10.6
 
-# ── Inpainting (object removal) ───────────────────────────────────────────────
-iopaint>=1.6.0
+# ── Cloud Inpainting (optional) ───────────────────────────────────────────────
+replicate==0.31.0
 
-# ── Utilities ─────────────────────────────────────────────────────────────────
-matplotlib>=3.7.0
-requests>=2.31.0
+# ── Standard library (no install needed, listed for reference) ────────────────
+# hashlib, io, os, base64, subprocess, tempfile, threading
+# shutil, signal, atexit, time, zipfile, urllib.request, pathlib, sys
